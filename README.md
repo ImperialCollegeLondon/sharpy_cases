@@ -1,2 +1,2 @@
 # sharpy_tests
-Tests for SHARPy
+Tests for SHARPy (https://github.com/ImperialCollegeLondon/sharpy)
