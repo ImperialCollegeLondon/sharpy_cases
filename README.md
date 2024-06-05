@@ -1,2 +1,2 @@
-# sharpy_tests
-Tests for SHARPy (https://github.com/ImperialCollegeLondon/sharpy)
+# sharpy_cases
+Repository of test cases for SHARPy (https://github.com/ImperialCollegeLondon/sharpy)
