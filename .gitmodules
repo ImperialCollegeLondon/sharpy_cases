@@ -1,0 +1,3 @@
+[submodule "SuperFLEXOP"]
+	path = SuperFLEXOP
+	url = https://github.com/sduess/flexop_model
