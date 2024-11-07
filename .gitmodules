@@ -1,6 +1,3 @@
 [submodule "SuperFLEXOP"]
 	path = SuperFLEXOP
 	url = https://github.com/sduess/flexop_model
-[submodule "MultibodyFLEXOP"]
-	path = MultibodyFLEXOP
-	url = https://github.com/ben-l-p/mb_flexop_model
