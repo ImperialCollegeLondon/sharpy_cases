@@ -182,7 +182,6 @@ class PazyStructure:
                                                             inertia_tensor[:, 2, 2])))
 
         # equivalent distribute mass
-        sharpy_element_ends = self.y[self.connectivities[:, 1]]
         um_element_ends = self.source['y']
         um_distributed_mass = np.zeros(n_mass)
         um_elem_length = np.diff(um_element_ends)
@@ -467,7 +466,7 @@ class PazyStructure:
             h5file.create_dataset('elem_stiffness', data=self.elem_stiffness)
             h5file.create_dataset('mass_db', data=self.mass_db)
             h5file.create_dataset('elem_mass', data=self.elem_mass)
-            h5file.create_dataset( 'frame_of_reference_delta', data=self.frame_of_reference_delta)
+            h5file.create_dataset('frame_of_reference_delta', data=self.frame_of_reference_delta)
             h5file.create_dataset('structural_twist', data=self.structural_twist)
             h5file.create_dataset('boundary_conditions', data=self.boundary_conditions)
             h5file.create_dataset('beam_number', data=self.beam_number)
@@ -489,7 +488,6 @@ class PazyStructure:
         self.connectivities = np.concatenate((self.connectivities, self.connectivities + self.n_node - 1))
         self.connectivities[self.n_elem, 0] = 0
 
-        self.elem_mass = np.concatenate((self.elem_mass, self.elem_mass))
         self.elem_stiffness = np.concatenate((self.elem_stiffness, self.elem_stiffness))
         self.app_forces = np.concatenate((self.app_forces, self.app_forces[1:, :]))
         self.beam_number = np.concatenate((self.beam_number, self.beam_number + 1))
@@ -499,6 +497,22 @@ class PazyStructure:
 
         self.n_elem *= 2
         self.n_node = 2 * self.n_node - 1
+
+        self.elem_mass = np.arange(self.n_elem)
+        mirror_mass_db = self.mass_db.copy()
+        mirror_mass_db[:, 0, 5] *= -1.0
+        mirror_mass_db[:, 5, 0] *= -1.0
+
+        mirror_mass_db[:, 2, 3] *= -1.0
+        mirror_mass_db[:, 3, 2] *= -1.0
+
+        mirror_mass_db[:, 3, 4] *= -1.0
+        mirror_mass_db[:, 4, 3] *= -1.0
+
+        mirror_mass_db[:, 5, 4] *= -1.0
+        mirror_mass_db[:, 4, 5] *= -1.0
+
+        self.mass_db = np.concatenate((self.mass_db, mirror_mass_db))
 
         self.x = np.concatenate((self.x, self.x[1:]))
         self.y = np.concatenate((self.y, -self.y[1:]))
