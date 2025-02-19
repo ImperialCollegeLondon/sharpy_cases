@@ -479,43 +479,54 @@ class PazyStructure:
                 h5file.create_dataset('lumped_mass_position', data=self.lumped_mass_position)
 
     def mirror_wing(self):
-        """
-        This code has been modified from th original Pazy model, as this has nodes ordered from root to tip on both
-        wings, and as the FoR delta is flipped, the structure and mass cross-sectional matrices are the same for both
-        wings.
-        """
+        # mirror on xa-za plane
+        if self.mirrored:
+            print('wing already mirrored')
+            return
 
-        self.connectivities = np.concatenate((self.connectivities, self.connectivities + self.n_node - 1))
-        self.connectivities[self.n_elem, 0] = 0
+        new_connectivities = np.zeros_like(self.connectivities)
+        new_connectivities[:, 0] = np.arange(self.n_node, 2 * self.n_node - 2, 2)
+        new_connectivities[:, 1] = np.arange(self.n_node + 2, 2 * self.n_node, 2)
+        new_connectivities[:, 2] = np.arange(self.n_node + 1, 2 * self.n_node - 1, 2)
+        new_connectivities[-1, 1] = 0
 
-        self.elem_stiffness = np.concatenate((self.elem_stiffness, self.elem_stiffness))
-        self.app_forces = np.concatenate((self.app_forces, self.app_forces[1:, :]))
-        self.beam_number = np.concatenate((self.beam_number, self.beam_number + 1))
-        self.structural_twist = np.concatenate((self.structural_twist, self.structural_twist))
-        self.boundary_conditions = np.concatenate((self.boundary_conditions, self.boundary_conditions[1:]))
-        self.frame_of_reference_delta = np.concatenate((self.frame_of_reference_delta, -self.frame_of_reference_delta))
+        self.connectivities = np.concatenate((self.connectivities, new_connectivities))
+
+        self.elem_mass = np.concatenate((self.elem_mass, self.elem_mass[::-1]))
+        self.app_forces = np.concatenate((self.app_forces, self.app_forces[1:][::-1]))
 
         self.n_elem *= 2
         self.n_node = 2 * self.n_node - 1
 
+        self.y = np.concatenate((self.y, -self.y[1:][::-1]))
+        self.x = np.zeros_like(self.y)
+        self.z = np.zeros_like(self.y)
+
+        self.beam_number = np.concatenate((self.beam_number, self.beam_number + 1))
+        self.structural_twist = np.zeros((self.n_elem, self.num_node_elem))
+
+        self.boundary_conditions = np.concatenate((self.boundary_conditions, self.boundary_conditions[1:][::-1]))
+
+        self.frame_of_reference_delta = np.concatenate((self.frame_of_reference_delta, self.frame_of_reference_delta))
+
+        # mirror stiffness matrix
+        self.stiffness_db = np.concatenate((self.stiffness_db, self.stiffness_db[::-1]))
+        self.elem_stiffness = np.arange(self.n_elem)
+
+        self.stiffness_db[self.n_elem // 2:, 0, 3] *= -1
+        self.stiffness_db[self.n_elem // 2:, 3, 0] *= -1
+        self.stiffness_db[self.n_elem // 2:, 3, 4:] *= -1
+        self.stiffness_db[self.n_elem // 2:, 4:, 3] *= -1
+
+        # mirror inertia matrix
+        self.mass_db = np.concatenate((self.mass_db, self.mass_db[::-1]))
         self.elem_mass = np.arange(self.n_elem)
-        mirror_mass_db = self.mass_db.copy()
-        mirror_mass_db[:, 0, 5] *= -1.0
-        mirror_mass_db[:, 5, 0] *= -1.0
 
-        mirror_mass_db[:, 2, 3] *= -1.0
-        mirror_mass_db[:, 3, 2] *= -1.0
-
-        mirror_mass_db[:, 3, 4] *= -1.0
-        mirror_mass_db[:, 4, 3] *= -1.0
-
-        mirror_mass_db[:, 5, 4] *= -1.0
-        mirror_mass_db[:, 4, 5] *= -1.0
-
-        self.mass_db = np.concatenate((self.mass_db, mirror_mass_db))
-
-        self.x = np.concatenate((self.x, self.x[1:]))
-        self.y = np.concatenate((self.y, -self.y[1:]))
-        self.z = np.concatenate((self.z, self.z[1:]))
+        self.mass_db[self.n_elem // 2:, 3, 4:] *= -1
+        self.mass_db[self.n_elem // 2:, 4:, 3] *= -1
+        self.mass_db[self.n_elem // 2:, 1, 5] *= -1
+        self.mass_db[self.n_elem // 2:, 2, 4] *= -1
+        self.mass_db[self.n_elem // 2:, 5, 1] *= -1
+        self.mass_db[self.n_elem // 2:, 4, 2] *= -1
 
         self.mirrored = True
