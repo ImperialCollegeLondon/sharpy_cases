@@ -1,0 +1,83 @@
+--------------------------------------------------------------------------------
+            ######  ##     ##    ###    ########  ########  ##    ##
+           ##    ## ##     ##   ## ##   ##     ## ##     ##  ##  ##
+           ##       ##     ##  ##   ##  ##     ## ##     ##   ####
+            ######  ######### ##     ## ########  ########     ##
+                 ## ##     ## ######### ##   ##   ##           ##
+           ##    ## ##     ## ##     ## ##    ##  ##           ##
+            ######  ##     ## ##     ## ##     ## ##           ##
+--------------------------------------------------------------------------------
+Aeroelastics Lab, Aeronautics Department.
+    Copyright (c), Imperial College London.
+    All rights reserved.
+    License available at https://github.com/imperialcollegelondon/sharpy
+Running SHARPy from /mnt/c/Users/rpalacio/git/sharpy_cases/StaticCantilever
+SHARPy being run is in /home/rpalacio/.local/lib/python3.10/site-packages
+SHARPy output folder set
+	cantilever//output//temp/
+Generating an instance of BeamLoader
+Variable orientation has no assigned value in the settings file.
+    will default to the value: [1.0, 0, 0, 0]
+Variable for_pos has no assigned value in the settings file.
+    will default to the value: [0.0, 0, 0]
+Generating an instance of NonLinearStatic
+Variable abs_threshold has no assigned value in the settings file.
+    will default to the value: 1e-13
+Variable newmark_damp has no assigned value in the settings file.
+    will default to the value: 0.0001
+Variable gravity_dir has no assigned value in the settings file.
+    will default to the value: [0.0, 0.0, 1.0]
+Variable relaxation_factor has no assigned value in the settings file.
+    will default to the value: 0.3
+Variable dt has no assigned value in the settings file.
+    will default to the value: 0.01
+Variable num_steps has no assigned value in the settings file.
+    will default to the value: 500
+Variable initial_position has no assigned value in the settings file.
+    will default to the value: [0. 0. 0.]
+Variable initial_velocity has no assigned value in the settings file.
+    will default to the value: [0. 0. 0. 0. 0. 0.]
+Generating an instance of Modal
+Variable print_info has no assigned value in the settings file.
+    will default to the value: True
+Variable use_undamped_modes has no assigned value in the settings file.
+    will default to the value: True
+Variable print_matrices has no assigned value in the settings file.
+    will default to the value: False
+Variable save_data has no assigned value in the settings file.
+    will default to the value: True
+Variable dt has no assigned value in the settings file.
+    will default to the value: 0.0
+Variable delta_curved has no assigned value in the settings file.
+    will default to the value: 0.01
+Variable plot_eigenvalues has no assigned value in the settings file.
+    will default to the value: False
+Variable max_rotation_deg has no assigned value in the settings file.
+    will default to the value: 15.0
+Variable max_displacement has no assigned value in the settings file.
+    will default to the value: 0.15
+Variable use_custom_timestep has no assigned value in the settings file.
+    will default to the value: -1
+Variable rigid_modes_ppal_axes has no assigned value in the settings file.
+    will default to the value: False
+Variable rigid_modes_cg has no assigned value in the settings file.
+    will default to the value: False
+Structural eigenvalues
+
+
+
+|==============|==============|==============|==============|==============|==============|==============|
+|     mode     |  eval_real   |  eval_imag   | freq_n (Hz)  | freq_d (Hz)  |   damping    |  period (s)  |
+|==============|==============|==============|==============|==============|==============|==============|
+|      0       |   0.000000   |  14.617270   |   2.326411   |   2.326411   |  -0.000000   |   0.429847   |
+|      1       |   0.000000   |  37.664499   |   5.994491   |   5.994491   |  -0.000000   |   0.166820   |
+|      2       |   0.000000   |  99.675333   |  15.863822   |  15.863822   |  -0.000000   |   0.063037   |
+|      3       |   0.000000   |  198.165046  |  31.538947   |  31.538947   |  -0.000000   |   0.031707   |
+|      4       |   0.000000   |  233.945999  |  37.233662   |  37.233662   |  -0.000000   |   0.026857   |
+|      5       |   0.000000   |  299.083595  |  47.600633   |  47.600633   |  -0.000000   |   0.021008   |
+|      6       |   0.000000   |  495.467043  |  78.856029   |  78.856029   |  -0.000000   |   0.012681   |
+|      7       |   0.000000   |  526.068130  |  83.726343   |  83.726343   |  -0.000000   |   0.011944   |
+|      8       |   0.000000   |  627.142016  |  99.812752   |  99.812752   |  -0.000000   |   0.010019   |
+|      9       |   0.000000   |  695.195371  |  110.643780  |  110.643780  |  -0.000000   |   0.009038   |
+FINISHED - Elapsed time = 1.0300096 seconds
+FINISHED - CPU process time = 2.6282386 seconds
