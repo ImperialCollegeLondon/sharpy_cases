@@ -11,8 +11,10 @@ Aeroelastics Lab, Aeronautics Department.
     Copyright (c), Imperial College London.
     All rights reserved.
     License available at https://github.com/imperialcollegelondon/sharpy
-Running SHARPy from /mnt/c/Users/rpalacio/git/sharpy_cases/StaticCantilever
-SHARPy being run is in /home/rpalacio/.local/lib/python3.10/site-packages
+Running SHARPy from /home/rpalacio/sharpy_cases/StaticCantilever
+SHARPy being run is in /home/rpalacio/sharpy/sharpy_env/lib/python3.13/site-packages
+The branch being run is copilot/fix-failing-github-actions-job
+The version and commit hash are: 2.4-14-g5c8a94c3-5c8a94c3
 SHARPy output folder set
 	cantilever//output//temp/
 Generating an instance of BeamLoader
@@ -79,5 +81,5 @@ Structural eigenvalues
 |      7       |   0.000000   |  526.068130  |  83.726343   |  83.726343   |  -0.000000   |   0.011944   |
 |      8       |   0.000000   |  627.142016  |  99.812752   |  99.812752   |  -0.000000   |   0.010019   |
 |      9       |   0.000000   |  695.195371  |  110.643780  |  110.643780  |  -0.000000   |   0.009038   |
-FINISHED - Elapsed time = 1.0300096 seconds
-FINISHED - CPU process time = 2.6282386 seconds
+FINISHED - Elapsed time = 1.0098666 seconds
+FINISHED - CPU process time = 3.9213626 seconds
